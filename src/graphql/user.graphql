@@ -1,0 +1,9 @@
+# Informações virão através do Google OAuth
+type User {
+  id: ID @id
+  name: String
+  avatar_url: String
+  email: String!
+  createdAt: DateTime @timestamp(operations: [CREATE])
+  updatedAt: DateTime @timestamp(operations: [CREATE, UPDATE])
+}

@@ -1,0 +1,12 @@
+type Book {
+  id: ID @id
+  title: String!
+  author: String!
+  description: String!
+  image: String!
+  published: DateTime
+  publisher: String
+  genre: String
+  createdAt: DateTime @timestamp(operations: [CREATE])
+  updatedAt: DateTime @timestamp(operations: [CREATE, UPDATE])
+}

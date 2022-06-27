@@ -1,7 +1,0 @@
-    # Informações virão através do Google OAuth
-    type User {
-      id: ID! @id
-      name: String
-      avatar_url: String
-      email: String
-    }
