@@ -1,13 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 let typeDefs = '';
 let mutations = '';
 let queries = '';
 let subscriptions = '';
-const dirname = path.join(__dirname, '../types/');
+const dirname = path.join(__dirname, '../graphql/');
 
-const concatMutations = (typeDef) => {
+const concatMutations = (typeDef: string) => {
   const regex = /(?<=Mutation\s*\{)(.*?[\s\S]*?)(?=\n\}\n)/g;
   const mutationsInTypeDef = typeDef.match(regex);
 
@@ -16,7 +16,7 @@ const concatMutations = (typeDef) => {
   }
 };
 
-const concatQueries = (typeDef) => {
+const concatQueries = (typeDef: string) => {
   const regex = /(?<=Query\s*\{)(.*?[\s\S]*?)(?=\n\}\n)/g;
   const queriesInTypeDef = typeDef.match(regex);
 
@@ -25,7 +25,7 @@ const concatQueries = (typeDef) => {
   }
 };
 
-const concatSubscriptions = (typeDef) => {
+const concatSubscriptions = (typeDef: string) => {
   const regex = /(?<=Subscription\s*\{)(.*?[\s\S]*?)(?=\n\}\n)/g;
   const subscriptionsInTypeDef = typeDef.match(regex);
 
@@ -34,19 +34,19 @@ const concatSubscriptions = (typeDef) => {
   }
 };
 
-const removeMutationsQueriesAndSubscriptions = (typeDef) => {
+const removeMutationsQueriesAndSubscriptions = (typeDef: string) => {
   const reMutations = /type\s*Mutation\s*\{(.*?[\s\S]*?)\n\}\n/g;
   const reQueries = /type\s*Query\s*\{(.*?[\s\S]*?)\n\}\n/g;
   const reSubscriptions = /type\s*Subscription\s*\{(.*?[\s\S]*?)\n\}\n/g;
 
-  let newTypeDef = typeDef.replaceAll(reMutations, '');
-  newTypeDef = newTypeDef.replaceAll(reQueries, '');
-  newTypeDef = newTypeDef.replaceAll(reSubscriptions, '');
+  let newTypeDef = typeDef.replace(reMutations, '');
+  newTypeDef = newTypeDef.replace(reQueries, '');
+  newTypeDef = newTypeDef.replace(reSubscriptions, '');
 
   return newTypeDef;
 };
 
-const mergeMutationsQueriesAndSubscriptions = (typeDef) => {
+const mergeMutationsQueriesAndSubscriptions = (typeDef: string) => {
   if (mutations.length > 0) {
     typeDef += `\n\ntype Mutation {\n${mutations}\n}`;
   }
@@ -74,7 +74,11 @@ export const mergeTypeDefs = () => {
     typeDefs += content;
   });
 
+  console.log(typeDefs);
+
   typeDefs += mergeMutationsQueriesAndSubscriptions(typeDefs);
 
   return typeDefs;
 };
+
+// export default { mergeTypeDefs };
