@@ -10,6 +10,7 @@ import { AddressInfo } from 'net';
 import dotenv from 'dotenv';
 // import { typeDefs } from './types';
 import { mergeTypeDefs } from '@/utils/typeDefsGenerator';
+import resolvers from '@/resolvers';
 // import { getUser } from './middlewares/authHandler';
 
 dotenv.config();
@@ -29,7 +30,7 @@ const driver = neo4j.driver(
 
 const typeDefs = mergeTypeDefs();
 
-const neo4jGraphQL = new Neo4jGraphQL({ typeDefs, driver });
+const neo4jGraphQL = new Neo4jGraphQL({ typeDefs, driver, resolvers });
 
 (async () => {
   const schema = await neo4jGraphQL.getSchema();

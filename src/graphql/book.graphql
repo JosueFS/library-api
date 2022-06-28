@@ -10,3 +10,7 @@ type Book {
   createdAt: DateTime @timestamp(operations: [CREATE])
   updatedAt: DateTime @timestamp(operations: [CREATE, UPDATE])
 }
+
+type Mutation {
+  CreateBook(name: String): String
+}
