@@ -37,11 +37,12 @@ const concatSubscriptions = (typeDef: string) => {
 const removeMutationsQueriesAndSubscriptions = (typeDef: string) => {
   const reMutations = /type\s*Mutation\s*\{(.*?[\s\S]*?)\n\}\n/g;
   const reQueries = /type\s*Query\s*\{(.*?[\s\S]*?)\n\}\n/g;
-  const reSubscriptions = /type\s*Subscription\s*\{(.*?[\s\S]*?)\n\}\n/g;
+  const reSubscriptions =
+    /type\s*Subscription\s*\{(.*?[\s\S]*?)(\n\}\n|\r\n\}\r\n)/g;
 
-  let newTypeDef = typeDef.replace(reMutations, '');
-  newTypeDef = newTypeDef.replace(reQueries, '');
-  newTypeDef = newTypeDef.replace(reSubscriptions, '');
+  let newTypeDef = typeDef.replaceAll(reMutations, '');
+  newTypeDef = newTypeDef.replaceAll(reQueries, '');
+  newTypeDef = newTypeDef.replaceAll(reSubscriptions, '');
 
   return newTypeDef;
 };
@@ -73,8 +74,6 @@ export const mergeTypeDefs = () => {
     content = removeMutationsQueriesAndSubscriptions(content);
     typeDefs += content;
   });
-
-  console.log(typeDefs);
 
   typeDefs += mergeMutationsQueriesAndSubscriptions(typeDefs);
 
