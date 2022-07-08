@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@neo4j/graphql": "^3.0.1",
+    "@neo4j/graphql-ogm": "^3.5.0",
     "apollo-server": "^3.6.3",
     "apollo-server-express": "^3.6.6",
     "axios": "^0.26.1",
