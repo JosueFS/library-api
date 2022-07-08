@@ -17,15 +17,19 @@ interface ApiResponse {
 }
 
 const api = axios.create({
-  baseURL: 'https://fakerapi.it/api/v1/books?_quantity=1000',
+  baseURL: 'https://fakerapi.it/api/v1/books',
 });
 
-async function getBooks() {
+async function getBooks(quantity: number): Promise<Book[] | undefined> {
   try {
-    const { data, code } = (await api.get('/')) as ApiResponse;
+    const { data: response } = await api.get('/', {
+      params: {
+        _quantity: quantity,
+      },
+    });
 
-    if (code === 200 && data.length) {
-      return data;
+    if (response.code === 200 && response.data.length) {
+      return response.data;
     }
   } catch (error) {
     console.error(

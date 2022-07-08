@@ -12,5 +12,13 @@ type Book {
 }
 
 type Mutation {
-  CreateBook(name: String): String
+  CreateBook(
+    title: String!
+    author: String!
+    description: String!
+    image: String!
+    published: DateTime
+    publisher: String
+    genre: String
+  ): Book
 }

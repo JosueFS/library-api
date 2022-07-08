@@ -1,14 +1,32 @@
-import { createBook } from '@/services/BookService';
+import {
+  checkIfBookExists,
+  createBook,
+  createBulkBooks,
+} from '@/services/BookService';
+import getBooks, { Book } from '@/utils/seed';
 
 export default {
   Mutation: {
-    async CreateBook(_: any, args: string, context: any) {
-      console.log('mutation');
+    async SeedBooks(_: any, __: any, context: any): Promise<Book[]> {
+      const data = await getBooks(200);
 
-      const response = await createBook({ name: args });
-      console.log(response);
+      let response = [] as Book[];
+      if (data) {
+        response = await createBulkBooks({ books: data, context });
+      }
 
-      return JSON.stringify(response);
+      return response;
+    },
+    async CreateBook(_: any, args: Book, context: any) {
+      const bookExists = await checkIfBookExists(args.title || '');
+
+      if (bookExists) {
+        throw new Error(`Book with title ${args.title} already exists!`);
+      }
+
+      const { books } = await createBook(args);
+
+      return books[0];
     },
   },
 };
