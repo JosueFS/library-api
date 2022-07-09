@@ -1,20 +1,17 @@
 import axios from 'axios';
 
-export interface Book {
-  title: string;
-  author: string;
-  genre: string;
-  description: string;
-  isbn: string;
-  image: string;
-  published: string;
-  publisher: string;
-}
+import { Book } from '@/graphql';
 
-interface ApiResponse {
-  code: number;
-  data: [Book];
-}
+// export interface Book {
+//   title: string;
+//   author: string;
+//   genre: string;
+//   description: string;
+//   isbn: string;
+//   image: string;
+//   published: string;
+//   publisher: string;
+// }
 
 const api = axios.create({
   baseURL: 'https://fakerapi.it/api/v1/books',

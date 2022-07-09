@@ -1,5 +1,5 @@
 import ogm from '@/config/ogm';
-import { Book } from '@/utils/seed';
+import { Book, MutationCreateBookArgs } from '@/graphql';
 
 const BookModel = ogm.model('Book');
 
@@ -9,7 +9,7 @@ export async function checkIfBookExists(title: string) {
   return !!existing;
 }
 
-export async function createBook(args: Book) {
+export async function createBook(args: MutationCreateBookArgs) {
   return await BookModel.create({ input: args });
 }
 

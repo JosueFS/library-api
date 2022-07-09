@@ -1,5 +1,6 @@
 type Book {
   id: ID @id
+  assetId: Int!
   title: String!
   author: String!
   description: String!

@@ -5,7 +5,7 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-co
 import resolvers from '@/resolvers';
 import driver from '@/config/neo4j';
 import typeDefs from '@/config/typeDefs';
-import ogm from './config/ogm';
+import ogm from '@/config/ogm';
 
 // GRAPHQL Server
 const neo4jGraphQL = new Neo4jGraphQL({ typeDefs, driver, resolvers });
