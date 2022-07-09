@@ -65,6 +65,8 @@ export const mergeTypeDefs = () => {
   const filenames = fs.readdirSync(dirname);
 
   filenames.forEach((filename) => {
+    if (!filename.match('.graphql')) return;
+
     let content = fs.readFileSync(dirname + filename, 'utf-8');
 
     concatMutations(content);
