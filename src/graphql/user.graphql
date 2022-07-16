@@ -4,6 +4,8 @@ type User {
   name: String
   avatar_url: String
   email: String!
+  borrow: Book @relationship(type: "LOANED_TO", direction: OUT)
+  favorites: [Book!]! @relationship(type: "FAVORITE_OF", direction: IN)
   createdAt: DateTime @timestamp(operations: [CREATE])
   updatedAt: DateTime @timestamp(operations: [CREATE, UPDATE])
 }
