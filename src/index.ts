@@ -1,10 +1,12 @@
 import express from 'express';
-import { AddressInfo } from 'net';
-import { createServer } from 'http';
+import { createServer } from 'node:http';
+import { expressMiddleware as apolloMiddleware } from '@apollo/server/express4';
 
-import { server as ApolloServer } from '@/server';
+import { server as ApolloServer, context } from '@/server';
 
 // import { getUser } from './middlewares/authHandler';
+const PATH = '/graphql';
+const PORT = 4001;
 
 (async () => {
   const server = await ApolloServer();
@@ -18,15 +20,11 @@ import { server as ApolloServer } from '@/server';
 
   await server.start();
 
-  server.applyMiddleware({ app });
+  app.use(PATH, apolloMiddleware(server, { context: context }));
 
-  httpServer.listen({ port: 4001 });
-
-  const { port } = httpServer.address() as AddressInfo;
-
-  console.log(
-    `⚛ GraphQL server online http://localhost:${port}${server.graphqlPath}`
-  );
+  httpServer.listen(PORT).on('listening', () => {
+    console.log(`⚛ GraphQL server online http://localhost:${PORT}${PATH}`);
+  });
 })();
 
 //NExt steps

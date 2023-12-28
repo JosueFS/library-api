@@ -5,9 +5,12 @@ type Book {
   author: String!
   description: String!
   image: String!
+  #pages: Int
   published: DateTime
   publisher: String
   genre: String
+  borrow: Book @relationship(type: "LOANED_TO", direction: IN)
+  favorites: [Book!]! @relationship(type: "FAVORITE_OF", direction: OUT)
   createdAt: DateTime @timestamp(operations: [CREATE])
   updatedAt: DateTime @timestamp(operations: [CREATE, UPDATE])
 }
